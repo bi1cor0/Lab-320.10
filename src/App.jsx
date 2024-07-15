@@ -45,9 +45,9 @@ export default function App() {
         <input type='text'
         value={name}
         onChange={e => setName(e.target.value)}/>
+        <button type='submit'>Submit</button>
       </form>
       {itToDos.map(items =>{ //running the ToDoItem component through the itToDos state.
-        console.log(items)
         return <ToDoItem key={items.id} items={items} dispatch={dispatch}/>
       })}
     </>
