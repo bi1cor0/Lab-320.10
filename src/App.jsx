@@ -11,8 +11,19 @@ function newtoDo(name) {
 function reducer(currtoDos, action){
   switch (action.type) {
     case 'add-toDo':
-      return[currtoDos, newtoDo(action.payload.name)]
-    case 'edit-toDo':
+      return[...currtoDos, newtoDo(action.payload.name)]
+    case 'check-toDo':
+      return currtoDos.map(td => {
+        if(td.id === action.payload.id) {
+          return { ...td, complete: !td.complete }
+        }
+        return td;
+      })
+    case 'delete-toDo':
+      return currtoDos.filter(td => td.id !== action.payload.id)
+
+    default:
+      return currtoDos;
   }
 }
 
@@ -37,7 +48,7 @@ export default function App() {
       </form>
       {itToDos.map(items =>{ //running the ToDoItem component through the itToDos state.
         console.log(items)
-        return <ToDoItem key={items.id} items={items} />
+        return <ToDoItem key={items.id} items={items} dispatch={dispatch}/>
       })}
     </>
   )
